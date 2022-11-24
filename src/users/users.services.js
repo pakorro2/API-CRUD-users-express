@@ -1,8 +1,15 @@
 const userControllers = require('./users.controllers');
 
 const getAllUsers = (req, res) => {
-  const data = userControllers.showAllUsers()
-  res.status(200).json(data)
+  userControllers.showAllUsers()
+    .then((data) => {
+      res.status(200).json(data)
+    })
+    .catch((err) => {
+      res.status(400).json({
+        message: err.message
+      })
+    })
 };
 
 const getUserById = (req, res) => {

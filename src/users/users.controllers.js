@@ -1,6 +1,8 @@
 const usersdb = [];
 let id = 1;
 
+const Users = require('../models/user.model')
+
 //? Modelo de base datos usuarios
 //* {
 //* 	id: 1,
@@ -12,8 +14,9 @@ let id = 1;
 //* }
 
 //? Solo para retornar el array con todos los usuarios
-const showAllUsers = () => {
-  return usersdb
+const showAllUsers = async () => {
+  const data = await Users.findAll()
+  return data
 };
 
 //? Obtener solo el usuario con el id incicado
