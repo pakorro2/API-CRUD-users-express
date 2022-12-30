@@ -1,8 +1,10 @@
 //? Dependencia principal Express
 const express = require('express');
+const cors = require('cors')
 
 //? Database config
 const db = require('./utils/database')
+const config = require('../config')
 
 //? Routers
 const userRouter = require('./users/users.router')
@@ -13,7 +15,8 @@ const app = express();
 
 //? Para manejar JSON 
 app.use(express.json());
-
+//? Enable CORS
+app.use(cors())
 
 //?Conection and configuration database validated
 db.authenticate()
@@ -30,9 +33,9 @@ app.get('/', (req, res) => {
 });
 
 //? Ruta base
-app.use('/', userRouter)
+app.use('/users', userRouter)
 
 //? Inicializar el servidor
-app.listen(port, () => {
-  console.log(`Server started at port ${port}`)
+app.listen(config.api.port, () => {
+  console.log(`Server started on ${config.api.host}`)
 })
